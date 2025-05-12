@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>SQL Analytics Project: Drug Review Dataset</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/alysahab/SQL-Drug-Data-Analysis/tree/main" class="logo">SQL Analytics Project</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+                <!-- <li><a href="elements.html">Contact</a></li> -->
+            </ul>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/alysahab" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">May 2025</span>
+                    <h1>Drug Review SQL Analytics</h1>
+                    <p>Explored trends in drug effectiveness, satisfaction, and ease of use using SQL Window Functions</p>
+                </header>
+
+                <div class="box">
+                    <h2>Project Overview</h2>
+                    <p>Analyzed a cleaned drug review dataset (mydb.drug_clean) to answer analytical questions using SQL Window Functions, Ranking, Aggregations, and Common Table Expressions.</p>
+                </div>
+
+                <div class="box">
+                    <h2>Task</h2>
+                    <p>Client request: Analyze drug review data using SQL window functions and aggregations.</p>
+                    <button
+                            type="button"
+                            class="details-button"
+                            onclick="window.location.href='SQL Task Mail.html'">
+                            View Tasks
+                        </button>
+                </div>
+
+
+                <div class="box">
+                    <h2>Problem Statements & SQL Solutions</h2>
+
+                    <div class="process-step">
+                        <h4>1. On Label vs Off Label Satisfaction by Condition</h4>
+                        <pre>
+<code>SELECT condition, indication, ROUND(avg_satisfaction, 2) 
+FROM (
+SELECT d.Condition, d.Indication, 
+    AVG(Satisfaction) OVER(PARTITION BY d.condition, d.indication) AS avg_satisfaction,
+    ROW_NUMBER() OVER(PARTITION BY d.condition, d.indication) r
+FROM drug_clean d
+) t
+WHERE r = 1;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>2. Avg Ease of Use & Satisfaction for Expensive Drugs by Type</h4>
+                    <pre><code>WITH cte AS (
+SELECT *, ROW_NUMBER() OVER(ORDER BY price) AS row_num
+FROM drug_clean
+)
+SELECT Type, ROUND(AVG(EaseOfUse), 2), ROUND(AVG(Satisfaction), 2)
+FROM cte
+WHERE price > (
+SELECT price FROM cte 
+WHERE row_num = (SELECT ROUND(COUNT(*)/2) FROM cte)
+)
+GROUP BY Type;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>3. Cumulative Distribution of EaseOfUse by Drug Type</h4>
+                    <pre><code>SELECT type, 
+SUM(EaseOfUse) OVER(PARTITION BY type ORDER BY EaseOfUse ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_sum,
+SUM(EaseOfUse) OVER(PARTITION BY type) AS total_sum,
+SUM(EaseOfUse) OVER(PARTITION BY type ORDER BY EaseOfUse ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) /
+SUM(EaseOfUse) OVER(PARTITION BY type) AS cumulative_distribution
+FROM drug_clean;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>4. Median Satisfaction by Condition</h4>
+                    <pre><code>WITH cte AS (
+SELECT *, ROW_NUMBER() OVER(PARTITION BY Condition ORDER BY Satisfaction ASC) AS row_num
+FROM drug_clean
+)
+SELECT Condition, ROUND(Satisfaction, 2) AS Median_Satisfaction
+FROM cte
+WHERE row_num = (
+SELECT ROUND(COUNT(*)/2) FROM cte c2 WHERE c2.Condition = cte.Condition
+)
+ORDER BY Median_Satisfaction DESC;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>5. Running Average Price by Condition</h4>
+                    <pre><code>SELECT condition,
+ROUND(AVG(price) OVER(PARTITION BY condition ORDER BY price ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW), 2) AS Running_Average
+FROM drug_clean
+ORDER BY condition;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>6. Percent Change in Reviews for Each Drug</h4>
+                    <pre><code>SELECT drug, reviews,
+((reviews - LAG(reviews) OVER(PARTITION BY drug ORDER BY reviews DESC)) / 
+    LAG(reviews) OVER(PARTITION BY drug ORDER BY reviews DESC)) * 100 AS percent_change_review
+FROM drug_clean;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>7. Satisfaction Contribution by Drug Type</h4>
+                    <pre><code>SELECT *, ROUND((satisfaction_level / SUM(satisfaction_level) OVER()) * 100, 2) AS percentage_satisfaction
+FROM (
+SELECT type, SUM(satisfaction) AS satisfaction_level
+FROM drug_clean
+GROUP BY type
+) t
+ORDER BY percentage_satisfaction DESC, type;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>8. Cumulative Effective Rating by Condition and Form</h4>
+                    <pre><code>SELECT condition, drug, form, effective,
+SUM(effective) OVER(PARTITION BY condition, form ORDER BY effective ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_sum
+FROM drug_clean
+ORDER BY condition, form, drug;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>9. Rank of Avg Ease of Use by Drug Type</h4>
+                    <pre><code>SELECT type,
+AVG(EaseOfUse) AS avg_ease,
+RANK() OVER(ORDER BY AVG(EaseOfUse) DESC) AS rank
+FROM drug_clean
+GROUP BY type
+ORDER BY rank, type DESC;</code></pre>
+                </div>
+
+                <div class="process-step">
+                    <h4>10. Avg Effectiveness of Top 3 Most Reviewed Drugs per Condition</h4>
+                    <pre><code>SELECT *
+FROM (
+SELECT condition, drug, reviews,
+    AVG(effective) OVER(PARTITION BY condition, drug ORDER BY reviews DESC) AS avg_eff,
+    DENSE_RANK() OVER(PARTITION BY condition ORDER BY reviews DESC) AS r
+FROM drug_clean
+) t
+WHERE r < 4
+ORDER BY condition, r;</code>
+                                </pre>
+                        </div>
+
+                </div>
+            
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/SQL-Drug-Data-Analysis/tree/main" class="button icon solid fa-code" target="_blank">View SQL Code</a></li>
+                </ul>
+
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+```

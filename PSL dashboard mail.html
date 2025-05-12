@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PSL Analytics Request - Management</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+        .email-container { max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { background: #00457c; color: #ffffff; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        h1 { margin-top: 0; font-size: 24px; }
+        h2 { color: #00457c; font-size: 18px; }
+        p { line-height: 1.5; }
+        .section { margin-bottom: 20px; }
+        .list { padding-left: 20px; }
+        .dashboard-link { display: inline-block; margin: 10px 0; padding: 10px 15px; background: #28a745; color: #ffffff; text-decoration: none; border-radius: 4px; }
+        .images { display: flex; flex-wrap: wrap; gap: 10px; }
+        .images img { width: calc(50% - 5px); border-radius: 4px; }
+        .footer { font-size: 12px; color: #888888; text-align: center; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="content">
+            <p>Dear <strong>Data Junior Analyst</strong>,</p>
+            <p>Our PSL franchise management has outlined a strategic initiative to leverage data-driven insights for improving match strategies and recruitment decisions. We need to build a robust analytics system that collects, cleans, stores, and visualizes performance metrics across all PSL seasons (2016–2024).</p>
+
+            <div class="section">
+                <h2>🎯 Objectives</h2>
+                <ul class="list">
+                    <li>Aggregate match-by-match and player-level data from multiple sources via web scraping.</li>
+                    <li>Clean and standardize raw HTML data (name inconsistencies, missing values).</li>
+                    <li>Store data in a cloud database (AWS RDS) for easy querying.</li>
+                    <li>Develop an interactive dynamic dashboard in streamlit to present key performance indicators.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🔍 Challenges to Solve</h2>
+                <ol class="list">
+                    <li><strong>Data Availability:</strong> Scrape data from ESPNcricinfo, Cricbuzz, etc.</li>
+                    <li><strong>Data Cleaning:</strong> Harmonize player and team names, fill missing records, validate entries using Python and Pandas.</li>
+                    <li><strong>Storage & Access:</strong> Design a relational schema on AWS MySQL RDS; implement ETL with SQLAlchemy. The data could be for further use of senior Data analysts and Data Science Team</li>
+                    <li><strong>visualization:</strong> Develop an interactive dashboard using the data stored in AWS MYSQL in Streamlit. The visuals detail is given below</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>📊 Key Metrics</h2>
+                <h3>Batting (Top 10 Players)</h3>
+                <ul class="list">
+                    <li>Runs Scored</li>
+                    <li>Batting Average</li>
+                    <li>Strike Rate</li>
+                    <li>Boundaries Hit</li>
+                </ul>
+                <h3>Bowling (Top 10 Players)</h3>
+                <ul class="list">
+                    <li>Wickets Taken</li>
+                    <li>Bowling Average</li>
+                    <li>Economy Rate</li>
+                    <li>Strike Rate</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📈 Detailed KPIs</h2>
+                <h4>Batting Performance per Player:</h4>
+                <ul class="list">
+                    <li>Total Matches, Runs, Strike Rate, Average</li>
+                    <li>Fours, Sixes, 50s, 100s</li>
+                    <li>Seasons played, teams, batting & bowling style</li>
+                    <li>Runs by season and against each opponent</li>
+                    <li>Dismissal types and most common opposing wicket-takers</li>
+                </ul>
+                <h4>Bowling Performance per Player:</h4>
+                <ul class="list">
+                    <li>Innings, Balls, Runs, Wickets</li>
+                    <li>Bowling Avg, Economy Rate, Strike Rate, Dot Ball %</li>
+                    <li>Maidens, Best Bowling Innings (BBI)</li>
+                    <li>Wickets and economy by season, team-wise averages</li>
+                    <li>Bowling distribution: dot vs. boundary ball percentages</li>
+                </ul>
+            </div>
+
+            <p>Best regards,<br>
+            <strong>Analytic Manager</strong></p>
+        </div>
+        <div class="footer">
+            This email and any attachments are confidential. If you are not the intended recipient, please delete and notify the sender.
+        </div>
+    </div>
+</body>
+</html

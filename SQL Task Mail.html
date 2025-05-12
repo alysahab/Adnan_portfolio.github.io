@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Drug Review Analysis Request - Healthcare Insights</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px; }
+        .email-container { max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { background: #00457c; color: #ffffff; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        h1 { margin-top: 0; font-size: 24px; }
+        h2 { color: #00457c; font-size: 18px; }
+        p { line-height: 1.5; }
+        .section { margin-bottom: 20px; }
+        .list { padding-left: 20px; }
+        .footer { font-size: 12px; color: #888888; text-align: center; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="content">
+            <p>Dear <strong>Data Analyst</strong>,</p>
+            <p>Our data team has been assigned to analyze patient drug review patterns to assist with improving prescription recommendations and understanding user feedback trends. We’d like your support in exploring and reporting insights from the <code>mydb.drug_clean</code> dataset using SQL window functions, aggregations, and ranking logic.</p>
+
+
+            <div class="section">
+                <h2>🔍 Key Analysis Questions</h2>
+                <ol class="list">
+                    <li>What is the average satisfaction for "On Label" vs. "Off Label" by medical condition?</li>
+                    <li>What are the average satisfaction and ease-of-use scores for drugs priced above median, by type?</li>
+                    <li>What is the cumulative distribution of ease-of-use ratings across RX, OTC, and RX/OTC drugs?</li>
+                    <li>What is the median satisfaction per condition?</li>
+                    <li>What is the running average price of drugs per condition?</li>
+                    <li>What’s the percentage change in reviews per drug over time?</li>
+                    <li>What’s the total satisfaction contribution of each drug type?</li>
+                    <li>What is the cumulative effectiveness by drug form and condition?</li>
+                    <li>How do drug types rank by average ease-of-use?</li>
+                    <li>Which are the top 3 most reviewed drugs for each condition, and what is their average effectiveness?</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>📦 Dataset Info</h2>
+                <ul class="list">
+                    <li>Table: <code>drug_clean</code></li>
+                    <li>Database: <code>mydb</code></li>
+                    <li>Key fields: <code>Condition</code>, <code>Drug</code>, <code>Type</code>, <code>Form</code>, <code>Price</code>, <code>Satisfaction</code>, <code>EaseOfUse</code>, <code>Effective</code>, <code>Reviews</code></li>
+                </ul>
+            </div>
+
+            <p>Once your analysis is complete, please share the SQL scripts and summary findings with our insights team. Let me know if you need clarification on any metrics.</p>
+
+            <p>Best regards,<br>
+            <strong>Alex Johnson</strong><br>
+            Lead Data Strategist, HealthcareIQ</p>
+        </div>
+        <div class="footer">
+            This email and any attachments are confidential. If you are not the intended recipient, please delete and notify the sender.
+        </div>
+    </div>
+</body>
+</html>

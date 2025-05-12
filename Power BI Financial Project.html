@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Automated Financial Data Analysis Pipeline</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .slide {
+            display: none;
+            width: 80%;
+            transition: opacity 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 50;
+            transition: opacity 0.3s;
+        }
+        .slideshow:hover .controls {
+            opacity: 1;
+        }
+        .controls button {
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+        .controls button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/yourusername/financial-data-pipeline" target="_blank" class="logo">Financial Data Automation</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+                <!-- <li><a href="elements.html">Contact</a></li> -->
+            </ul>
+            <ul class="icons">
+                <li><a href="https://www.linkedin.com/in/yourprofile" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/yourusername" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">May 2025</span>
+                    <h1>Automated Financial Data Analysis Pipeline</h1>
+                    <p>Design and implementation of a zero-touch ingestion-to-dashboard system for daily financial survey data, reducing manual overhead and errors</p>
+                </header>
+
+                <div class="box">
+                    <h2>Project Overview</h2>
+                    <p>This project automates the entire process of receiving, processing, and visualizing daily financial survey data from emails. Using Microsoft Power Automate, Python scripts, cloud storage APIs, Power Query, and Power BI, I built a zero-touch pipeline that retrieves email attachments, cleans and merges the data, and generates an interactive dashboard updated daily—eliminating the need for manual intervention and minimizing errors.</p>
+                </div>
+
+                <div class="box">
+                    <h2>Client Requirements</h2>
+                     <p>Every day by 3 pm, they receives ~25 Excel/CSV files via email from a distributed US government survey team. These needed data file to be consolidated, cleaned, and visualized in a dashboard by 8 pm. They want automate the entire pipeline—from email retrieval and file extraction to data processing and dashboard updates—ensuring daily delivery with zero manual effort, improved accuracy, and scalability.</p>
+
+                    <ul class="list">
+                        <li><strong>Timely Delivery</strong>: Consolidated dashboard by 8 pm without manual bottlenecks.</li>
+                        <li><strong>Accuracy</strong>: Eliminate data-entry errors and inconsistent formats.</li>
+                        <li><strong>Cost Efficiency</strong>: Replace $12K/month in manual labor with automation.</li>
+                        <li><strong>Scalability</strong>: Handle growing file volumes and evolving analysis tasks.</li>
+                    </ul>
+                    <blockquote>
+                        <a href="documents/Financial project task.pdf" target="_blank" class="button icon solid fa-file-pdf">View Original Task Email</a>
+                    </blockquote>
+                </div>
+
+                <div class="box">
+                    <h2>Pipeline Steps</h2>
+
+                    <div class="step">
+                        <h3>1. Email Collection (Outlook Rule)</h3>
+                        <p>Created a rule to filter survey-related emails with keyword <code>"credit score"</code> into a dedicated folder.</p>
+                       <div class="slideshow">
+                            <img src="images/Sender Mail.png" class="slide active" alt="Sender Mail">
+                            <img src="images/Receiver mail.png" class="slide" alt="Reciever Mail">
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>   
+                        </div>
+                    </div>
+                    
+                </div><br><br>
+
+                    <div class="step">
+                        <h3>2. Attachment Extraction (Power Automate)</h3>
+                        <p>Used Microsoft Power Automate Cloud Flow to detect new emails in the Finance Data mail and download attachments to Google Drive.</p>
+                        <div class="slideshow">
+                            <img src="images/Automate 1.png" class="slide active" alt="power automate mail arrived">
+                            <img src="images/Automate 2.png" class="slide" alt="store in google drive">
+                            <img src="images/google drive.png" class="slide" alt="google drive">
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>
+                        </div>
+                    </div><br><br>
+
+                    <h3>3. File Consolidation (Python + Google Drive API in Power BI)</h3>
+                        <p>
+                            A Python script is directly used as a data source in Power BI to automate the consolidation of survey files from a shared Google Drive folder.
+                        </p>
+                        <ul>
+                            <li>Authenticated using a Google Service Account (with Viewer access) via the Google Drive API.</li>
+                            <li>The script lists and fetches CSV, Excel, and Google Sheets files from the specified folder.</li>
+                            <li>Files are read and processed with <code>pandas</code>, then merged into a single DataFrame.</li>
+                            <li>Power BI consumes this live output, ensuring fresh, up-to-date data without manual uploads.</li>
+                        </ul>
+                        <p>
+                            This method ensures seamless and automated integration of cloud-hosted survey data into Power BI dashboards.
+                        </p>
+
+                        <details>
+    <summary style="cursor: pointer; font-weight: bold; font-size: 1em;">Python script code</summary>
+    <pre class="code-sample" style="margin-top: 10px;">
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+import pandas as pd
+import requests
+from io import StringIO
+from io import BytesIO  # For handling Excel files
+
+# Replace with the path to your service account credentials
+SERVICE_ACCOUNT_FILE = "C:\\Users\\aly98\\Downloads\\myfirstproject-397107-12e2d187a167.json"
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+
+# Authenticate and create the service
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+service = build('drive', 'v3', credentials=credentials)
+
+# Replace with your Google Drive folder ID
+FOLDER_ID = 'put your folder id'
+
+def list_files(service, folder_id):
+    results = service.files().list(
+        q=f"'{folder_id}' in parents",
+        fields="files(id, name, mimeType)"
+    ).execute()
+    return results.get('files', [])
+
+# Fetch the files
+files = list_files(service, FOLDER_ID)
+
+# List to store dataframes for file content
+file_dataframes = []
+
+for file in files:
+    file_id = file['id']
+    file_name = file['name']
+    mime_type = file['mimeType']
+    
+    # Check if the file is Google Sheets, CSV, or Excel
+    if mime_type == 'application/vnd.google-apps.spreadsheet':
+        download_url = f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=csv"
+    elif mime_type == 'text/csv' or mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    else:
+        continue
+
+    response = requests.get(download_url)
+    if response.status_code == 200:
+        if mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(BytesIO(response.content))
+        else:
+            df = pd.read_csv(StringIO(response.content.decode('utf-8')))
+        file_dataframes.append(df)
+    else:
+        print(f"Error downloading file: {file_name}")
+
+if file_dataframes:
+    combined_df = pd.concat(file_dataframes, ignore_index=True)
+    </pre>
+                    </details><br><br>
+
+                
+
+                    <div class="step">
+                        <h3>4. Transformation (Power Query in Power BI)</h3>
+                        <p>Used Power Query's M code to shape the data: type conversions, deduplication, null filtering, and calculation of new columns such as <code>AgeGroup</code>, <code>num_of_credit_card</code>, and data folding optimization for performance.</p>
+                        <img src="images/Power Query Finance.png" alt="Power Query steps" style="width: 100%; max-width: 100%; height: 100%; border-radius: 5px;">
+                    </div><br><br>
+
+                    <div class="step">
+                        <h3>5. Dashboard & Insights (Power BI)</h3>
+                        <p>Created interactive dashboards with slicers, DAX measures, custom visuals (cohort bar charts, distribution plots) deployed to Power BI Service for daily refresh and stakeholder access.</p>
+                        <div class="slideshow">
+                            <img src="images/Finance Dashboard1.png" class="slide active" alt="Dashboard image1" style="width: 100%; height: 100%;">
+                            <img src="images/Finance Dashboard2.png" class="slide" alt="ashboard image2" style="width: 100%; height: 100%;">
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>
+                        </div>
+                    </div><br><br>
+                
+
+                <div class="box">
+                    <h2>Technology Summary</h2>
+                    <ul>
+                        <li><strong>Outlook & Power Automate</strong>: Access email metadata and attachments.</li>
+                        <li><strong>Google Drive API</strong>: Secure file handling and access from cloud.</li>
+                        <li><strong>Python</strong>: <code>pandas</code> for ETL logic, <code>google-auth</code> libraries for secure API usage.</li>
+                        <li><strong>Power Query</strong>: M-code transformations with custom logic, filters, and performance boosts.</li>
+                        <li><strong>Power BI</strong>: Dashboard layer with DAX metrics, filters, and visuals.</li>
+                    </ul>
+                </div>
+
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/Financial-Project-Power-BI" class="button icon solid fa-code" target="_blank">View Source on GitHub</a></li>
+                    <li><a href="https://app.powerbi.com/view?r=eyJrIjoiNmU2NTVjNDAtYjg4Ny00NmFjLTliNWYtMWI2M2U1NDNkZjc0IiwidCI6ImQ3NTVkZWIwLTFkNTgtNGFkNS05MDg5LTYyYzU5ZmU4MzdmOCIsImMiOjl9&pageName=4c0928d011074b0ecb0b" class="button icon solid fa-chart-bar" target="_blank">Go to Dashboard</a></li>
+                </ul>
+
+            </section>
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".slideshow").forEach(function (slideshow) {
+            const slides = slideshow.querySelectorAll(".slide");
+            let index = 0;
+
+            function showSlide(i) {
+                slides.forEach((s, idx) => {
+                    s.classList.remove("active");
+                    s.style.display = "none";
+                    if (idx === i) {
+                        s.classList.add("active");
+                        s.style.display = "block";
+                    }
+                });
+            }
+
+            function changeSlide(n) {
+                index = (index + n + slides.length) % slides.length;
+                showSlide(index);
+            }
+
+            // Attach the changeSlide function to the controls in this slideshow
+            const buttons = slideshow.querySelectorAll(".controls button");
+            buttons[0].addEventListener("click", () => changeSlide(-1));
+            buttons[1].addEventListener("click", () => changeSlide(1));
+
+            // Initialize
+            showSlide(index);
+        });
+    });
+</script>
+
+    </div>
+</body>
+</html>

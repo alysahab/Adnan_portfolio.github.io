@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PSL Cricket Data Pipeline: Web Scraping + ETL</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .slideshow:hover .controls {
+            opacity: 1;
+        }
+        .controls button {
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+        .controls button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/alysahab/PSL-Web-Scraping-ETL/tree/master" target="_blank" class="logo">ETL (Web Scraping)</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+                <!-- <li><a href="elements.html">Contact</a></li> -->
+            </ul>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/alysahab" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">June 2024</span>
+                    <h1>Scraping, Cleaning & Loading Pipeline</h1>
+                    <p>Automated collection of 8,000+ records from 9 PSL seasons (2016–2024)</p>
+                </header>
+
+                <div class="box">
+                    <h2>Project Summary</h2>
+                    <p>This project showcases an end-to-end ETL (Extract, Transform, Load) pipeline using dynamic web scraping with Selenium and Python. It collects match-level player stats from ESPNcricinfo, cleans the data using Pandas, and stores the final structured records in AWS RDS for further analysis. Real-world data engineering and automation are demonstrated throughout.</p>
+                </div>
+
+                <div class="box">
+                    <h2>Sample Results</h2>
+                    <p><strong>Web to Table:</strong> Screenshots show scraped pages from <a href="https://www.espncricinfo.com/" target="_blank">ESPNcricinfo</a> and the final cleaned datasets.</p>
+                    <div class="slideshow" onmouseenter="startAutoSlide()" onmouseleave="stopAutoSlide()">
+                        <img src="images/Website SS.png" class="slide active" alt="Web Scraped">
+                        <img src="images\result_data_ss1.png" class="slide" alt="Cleaned Data">
+                        <img src="images\result_data_ss2.png" class="slide" alt="Cleaned Data">
+                        <div class="controls">
+                            <button onclick="changeSlide(-1)">❮</button>
+                            <button onclick="changeSlide(1)">❯</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p><a href="https://www.kaggle.com/datasets/alysahab/complete-psl-data-2016-2024" target="_blank">View Complete Dataset on Kaggle</a></p>
+
+                <div class="box">
+                    <h2>Pipeline Architecture</h2>
+                    <p><strong>Overview:</strong> A multi-threaded scraper automates Microsoft Edge to navigate and extract dynamic HTML from PSL match pages. Using concurrent threading, multiple matches are scraped in parallel. BeautifulSoup parses the HTML, Pandas cleans the data, and SQLAlchemy loads it into AWS RDS Aurora securely.</p>
+
+                    <div class="row">
+                        <div class="col-4 col-12-medium">
+                            <h3>1. Extraction</h3>
+                            <ul>
+                                <li>Selenium</li>
+                                <li>ThreadPoolExecutor</li>
+                                <li>BeautifulSoup</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>2. Transformation</h3>
+                            <ul>
+                                <li>Pandas DataFrames</li>
+                                <li>CSV Storage</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>3. Loading</h3>
+                            <ul>
+                                <li>SQLAlchemy ORM</li>
+                                <li>AWS RDS MySQL</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Key Achievements</h2>
+                <div class="table-wrapper">
+                    <table class="alt">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Result</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Collection Speed</td>
+                                <td>&lt; 15 minutes</td>
+                                <td>75% faster than sequential</td>
+                            </tr>
+                            <tr>
+                                <td>Data Validity</td>
+                                <td>99% valid records</td>
+                                <td>Reliable analytics base</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>AWS RDS</td>
+                                <td>Cloud-ready complete data (2016-2024)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>What I Learned:</strong> Hands-on experience with Selenium, concurrency, data cleaning, and cloud databases. Learned how to optimize scraping at scale and parse inconsistent HTML structures.</p>
+
+
+                <div class="box">
+                    <h3>Applications</h3>
+                    <ul>
+                        <li>Data dashboards for player trends</li>
+                        <li>ML models for performance prediction</li>
+                        <li>EDA and cricket analytics</li>
+                        <li>Fantasy league tools and blog content</li>
+                    </ul>
+                </div>
+
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/PSL-Web-Scraping-ETL/tree/master" class="button icon solid fa-code" target="_blank">View Code</a></li>
+                    <li><a href="https://www.kaggle.com/datasets/alysahab/complete-psl-data-2016-2024" class="button icon solid fa-chart-bar" target="_blank">Explore Data</a></li>
+                </ul>
+
+            </section>
+        </div>
+
+        <script>
+            let index = 0;
+            let interval;
+            const slides = document.querySelectorAll(".slide");
+
+            function showSlide(i) {
+                slides.forEach(s => s.classList.remove("active"));
+                slides[i].classList.add("active");
+            }
+
+            function changeSlide(n) {
+                index = (index + n + slides.length) % slides.length;
+                showSlide(index);
+            }
+
+            function startAutoSlide() {
+                interval = setInterval(() => changeSlide(1), 3000);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+        </script>
+    </div>
+</body>
+</html>

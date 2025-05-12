@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>PSL Data Analytic (SQL+Python)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+   <style>
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .slideshow:hover .controls {
+            opacity: 1;
+        }
+        .controls button {
+            background: rgba(200, 200, 200, 0.6);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+        .controls button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/alysahab/PSL-Players-Analytics" target="_blank" class="logo">PSL Data Analytic</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+                <!-- <li><a href="elements.html">Contact</a></li> -->
+            </ul>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/alysahab" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">July 2024</span>
+                    <h1>PSL Performance Analytics Dashboard</h1>
+                    <p>Interactive visualization and ETL pipeline for Pakistan Super League (2016-2024)</p>
+                </header>
+
+                <div class="box">
+                    <h2>Management Request</h2>
+                    <blockquote>
+                        Management emailed a list of tasks to be implemented.<br>
+                        <button
+                            type="button"
+                            class="details-button"
+                            onclick="window.location.href='PSL dashboard mail.html'">
+                            View Tasks
+                        </button>
+                    </blockquote>
+                </div>
+
+
+                <div class="box">
+                    <h2>Project Highlights</h2>
+                    <p>This end-to-end project features:</p>
+                    <ul class="list">
+                        <li>Web scraping of match and player data from ESPNcricinfo and Cricbuzz.</li>
+                        <li>Data cleaning pipeline using Python and Pandas to standardize records.</li>
+                        <li>AWS MySQL RDS storage with indexed tables for fast querying.</li>
+                        <li>Streamlit dashboard displaying top batting and bowling KPIs and player analytics.</li>
+                    </ul>
+                    <p>In this project, I implemented the visualization components using Python and SQL.</p>
+                    <p>For the ETL pipeline, refer to 
+                        <a href="PSL Webscraping.html" class="details-button">View ETL Pipeline</a>
+                    </p>
+                </div>
+
+
+                <div class="box">
+                    <h2>Dashboard Features</h2>
+                    <div class="slideshow">
+                        <img src="images/image1 psl analytic.png" class="slide active" alt="Batting player module">
+                        <img src="images/image2 PSL analytic.png" class="slide" alt="Batting player module">
+                        <img src="images/image3 PSL analytic.png" class="slide" alt="Bowling overall">
+                        <img src="images/image4 PSL analytic.png" class="slide" alt="Batting player module">
+                        <div class="controls">
+                            <button onclick="changeSlide(-1)">❮</button>
+                            <button onclick="changeSlide(1)">❯</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h2>Technical Architecture</h2>
+                    <h3>Workflow</h3>
+                    <img src="images/PSL dashboard workflow.png" class="slide active" alt="workflow analytics"><br><br>
+                    <div class="row">
+                        <div class="col-4 col-12-medium">
+                            <h3>Frontend</h3>
+                            <ul>
+                                <li>Streamlit</li>
+                                <li>Plotly Express</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>Data Processing</h3>
+                            <ul>
+                                <li>MySQL</li>
+                                <li>Pandas</li>
+                                <li>SQLAlchemy for DB interactions</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>Database</h3>
+                            <ul>
+                                <li>AWS MySQL RDS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Analytical Capabilities</h2>
+                <div class="table-wrapper">
+                    <table class="alt">
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Features</th>
+                                <th>Metrics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Overall Batting</td>
+                                <td>Top 10 runs, averages, strike rates, boundaries</td>
+                                <td>Runs, Avg, SR, Boundaries</td>
+                            </tr>
+                            <tr>
+                                <td>Player Batting</td>
+                                <td>KPI metrics & charts: runs by season/team, dismissal breakdown</td>
+                                <td>Matches, Runs, SR, Avg, Fours, Sixes, 50s, 100s</td>
+                            </tr>
+                            <tr>
+                                <td>Overall Bowling</td>
+                                <td>Top 10 wickets, avg, economy, strike rates</td>
+                                <td>Wickets, Avg, Econ, SR</td>
+                            </tr>
+                            <tr>
+                                <td>Player Bowling</td>
+                                <td>KPI metrics & charts: wickets by season/team, distribution</td>
+                                <td>Innings, Balls, Runs, Wickets, Avg, Econ, Strike Rate, Dot%, BBI, Bowling Average</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Dynamic filtering by season and player</li>
+                        <li>Dual tabs for charts and raw data</li>
+                        <li>Auto-generated KPI metrics at a glance</li>
+                        <li>Responsive layout with wide configuration</li>
+                    </ul>
+                </div>
+
+                <p><strong>Technical Challenges Solved:</strong><br>
+                - Handled inconsistent HTML scraping across multiple sources, transformed the data and loaded the data.<br>
+                - Visualization logic with Plotly for maintainability.<br>
+                - SQL logic to fetch appropriate data from database</p>
+
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/PSL-Players-Analytics" class="button icon solid fa-code" target="_blank">View Source</a></li>
+                    <li><a href="https://psl-players-stats.streamlit.app/" class="button icon solid fa-chart-line" target="_blank">Live Demo</a></li>
+                </ul>
+
+            </section>
+        </div>
+
+        <!-- Keep existing script section -->
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Only target slides within the slideshow container
+                const slideshow = document.querySelector(".slideshow");
+                const slides = slideshow.querySelectorAll(".slide");
+                let index = 0;
+
+                function showSlide(i) {
+                    slides.forEach((slide, idx) => {
+                        slide.classList.remove("active");
+                        slide.style.display = "none";
+                        if (idx === i) {
+                            slide.classList.add("active");
+                            slide.style.display = "block";
+                        }
+                    });
+                }
+
+                function changeSlide(n) {
+                    // Calculate new index with boundary checks
+                    const newIndex = index + n;
+                    if (newIndex >= slides.length) {
+                        index = 0;
+                    } else if (newIndex < 0) {
+                        index = slides.length - 1;
+                    } else {
+                        index = newIndex;
+                    }
+                    showSlide(index);
+                }
+
+                // Initialize first slide
+                showSlide(index);
+                window.changeSlide = changeSlide;
+            });
+        </script>
+
+ 
+    </div>
+</body>
+</html>

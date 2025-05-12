@@ -1,0 +1,424 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Data Cleaning Project: Laptop Specifications</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .slideshow:hover .controls {
+            opacity: 1;
+        }
+        .controls button {
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+        .controls button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/alysahab/SQL-Data-Cleaning/tree/main" target="_blank" class="logo">SQL Data Cleaning Project</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+                <!-- <li><a href="elements.html">Contact</a></li> -->
+            </ul>
+            <ul class="icons">
+                <li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/alysahab" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">July 2024</span>
+                    <h1>Laptop Specifications Data Cleaning</h1>
+                    <p>Transformed raw laptop specs into analysis-ready data using SQL</p>
+                </header>
+
+                <div class="box">
+                    <h2>Project Overview</h2>
+                    <p>Cleaned 1,200+ laptop specifications from various manufacturers. Performed complex data transformations including feature extraction, data type standardization, and quality assurance checks.</p>
+                </div>
+
+                <div class="box">
+                    <h2>Data Transformation Process</h2>
+                    <div class="row">
+                        <div class="col-4 col-12-medium">
+                            <h3>1. Initial Cleaning</h3>
+                            <ul>
+                                <li>Duplicate removal</li>
+                                <li>Backup creation</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>2. Feature Engineering</h3>
+                            <ul>
+                                <li>GPU/CPU brand extraction</li>
+                                <li>Screen resolution parsing</li>
+                                <li>Memory type classification</li>
+                            </ul>
+                        </div>
+                        <div class="col-4 col-12-medium">
+                            <h3>3. Normalization</h3>
+                            <ul>
+                                <li>Data type conversion</li>
+                                <li>Column splitting</li>
+                                <li>Unit standardization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h2>Sample Results</h2>
+                    <p><strong>Web to Table: </strong> Data Before and After</p>
+                    <div class="slideshow" onmouseenter="startAutoSlide()" onmouseleave="stopAutoSlide()">
+                        <img src="images/Uncleaned Laptop_data.png" class="slide active" alt="Web Scraped">
+                        <img src="images/Cleaned Laptop_data.png" class="slide" alt="Cleaned Data">
+
+                        <div class="controls">
+                            <button onclick="changeSlide(-1)">❮</button>
+                            <button onclick="changeSlide(1)">❯</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h2>Data Cleaning Process Steps</h2>
+                    
+                    <!-- Database Selection -->
+                    <div class="process-step">
+                        <h4>Database Selection</h4>
+                        <pre><code>USE db;</code></pre>
+                    </div>
+
+                    <!-- Data Backup -->
+                    <div class="process-step">
+                        <h4>Data Backup (DDL + DML)</h4>
+                        <pre><code># Take Data backup
+                CREATE TABLE laptop_backup LIKE laptopdata;
+                INSERT INTO laptop_backup
+                SELECT * FROM laptopdata;</code></pre>
+                    </div>
+
+                    <!-- Storage Check -->
+                    <div class="process-step">
+                        <h4>Storage Size Check (DQL)</h4>
+                        <pre><code># byte/1024 = KB
+                SELECT Data_length/1024 FROM information_schema.Tables
+                WHERE Table_schema = 'db' AND Table_name = 'laptopdata';</code></pre>
+                    </div>
+
+                    <!-- Column Rename -->
+                    <div class="process-step">
+                        <h4>Column Renaming (DDL)</h4>
+                        <pre><code># Change column name Unnamed: 0 to index
+                ALTER TABLE laptopdata RENAME COLUMN `Unnamed: 0` TO `index`;</code></pre>
+                    </div>
+
+                    <!-- Null Values Check -->
+                    <div class="process-step">
+                        <h4>Null Values Check (DQL)</h4>
+                        <pre><code>SELECT * 
+                FROM laptopdata l
+                WHERE Company IS NULL OR TypeName IS NULL OR Inches IS NULL 
+                OR ScreenResolution IS NULL OR Cpu IS NULL OR Ram IS NULL 
+                OR Memory IS NULL OR Gpu IS NULL OR OpSys IS NULL
+                OR Weight IS NULL OR Price IS NULL OR l.index IS NULL;</code></pre>
+                    </div>
+
+                    <!-- Duplicate Handling -->
+                    <div class="process-step">
+                        <h4>Duplicate Management (DML + DQL)</h4>
+                        <pre><code># Distinct index count
+                SELECT COUNT(DISTINCT(l.index)) FROM laptopdata l;
+
+                # Delete duplicates
+                DELETE FROM laptopdata l
+                WHERE l.index IN (
+                SELECT t.index FROM (
+                    SELECT l.index,
+                    ROW_NUMBER() OVER(PARTITION BY Company, TypeName, Inches, 
+                                    ScreenResolution,Cpu, Ram, Memory, 
+                                    Gpu, OpSys, Weight, Price) r
+                    FROM laptopdata l) t
+                WHERE r > 1);
+
+                # Verify duplicates
+                SELECT t.index FROM (
+                SELECT l.index,
+                ROW_NUMBER() OVER(PARTITION BY Company, TypeName, Inches, 
+                                    ScreenResolution,Cpu, Ram, Memory, 
+                                    Gpu, OpSys, Weight, Price) r
+                FROM laptop l) t
+                WHERE r > 1;</code></pre>
+                    </div>
+
+                    <!-- RAM Cleaning -->
+                    <div class="process-step">
+                        <h4>RAM Column Cleaning (DML + DDL)</h4>
+                        <pre><code>UPDATE laptopdata
+                SET Ram = REPLACE(Ram,'GB','');
+
+                ALTER TABLE laptopdata MODIFY COLUMN ram INTEGER;</code></pre>
+                    </div>
+
+                    <!-- Weight Cleaning -->
+                    <div class="process-step">
+                        <h4>Weight Column Cleaning (DML + DDL)</h4>
+                        <pre><code>UPDATE laptopdata
+                SET weight = REPLACE(weight,'kg','');
+
+                # Handle non-numeric values
+                UPDATE laptopdata
+                SET weight = REPLACE(weight,'?','0');
+
+                ALTER TABLE laptopdata MODIFY COLUMN weight DECIMAL(10,3);</code></pre>
+                    </div>
+
+                    <!-- Price Cleaning -->
+                    <div class="process-step">
+                        <h4>Price Standardization (DML + DDL)</h4>
+                        <pre><code>UPDATE laptopdata
+                SET Price = ROUND(price);
+
+                ALTER TABLE laptopdata MODIFY COLUMN price INTEGER;</code></pre>
+                    </div>
+
+                    <!-- Operating System Cleaning -->
+                    <div class="process-step">
+                        <h4>OS Standardization (DML)</h4>
+                        <pre><code>UPDATE laptopdata
+                SET OpSys = CASE
+                    WHEN OpSys LIKE '%mac%' THEN 'macos'
+                    WHEN OpSys LIKE '%Windows%' THEN 'windows'
+                    WHEN OpSys LIKE '%Linux%' THEN 'linux'
+                    WHEN OpSys LIKE '%Chrome%' THEN 'chromeOS'
+                    WHEN OpSys LIKE '%Android%' THEN 'androidOS'
+                    WHEN OpSys LIKE '$No OS%' THEN 'n/a'
+                END;</code></pre>
+                    </div>
+
+                    <!-- GPU Processing -->
+                    <div class="process-step">
+                        <h4>GPU Feature Extraction (DDL + DML)</h4>
+                        <pre><code>ALTER TABLE laptopdata
+                ADD COLUMN Gpu_brand VARCHAR(255) AFTER Gpu,
+                ADD COLUMN Gpu_name VARCHAR(255) AFTER Gpu_brand;
+
+                UPDATE laptopdata
+                SET Gpu_brand = SUBSTRING_INDEX(Gpu,' ',1),
+                    Gpu_name = REPLACE(Gpu,Gpu_brand,'');
+
+                ALTER TABLE laptopdata DROP COLUMN Gpu;</code></pre>
+                    </div>
+
+                    <!-- CPU Processing -->
+                    <div class="process-step">
+                        <h4>CPU Feature Engineering (DDL + DML)</h4>
+                        <pre><code>ALTER TABLE laptopdata
+                ADD COLUMN Cpu_brand VARCHAR(255) AFTER Cpu,
+                ADD COLUMN Cpu_name VARCHAR(255) AFTER Cpu_brand,
+                ADD COLUMN Cpu_speed VARCHAR(255) AFTER Cpu_model;
+
+                UPDATE laptopdata
+                SET Cpu_brand = SUBSTRING_INDEX(Cpu,' ',1),
+                    Cpu_name = SUBSTRING_INDEX(REPLACE(Cpu,Cpu_brand, ''),Cpu_speed,1),
+                    Cpu_speed = REPLACE(SUBSTRING_INDEX(Cpu,' ',-1), 'GHz', '');
+
+                ALTER TABLE laptopdata DROP COLUMN cpu;</code></pre>
+                    </div>
+
+                    <!-- Screen Resolution Processing -->
+                    <div class="process-step">
+                        <h4>Screen Resolution Parsing (DDL + DML)</h4>
+                        <pre><code>ALTER TABLE laptopdata
+                ADD COLUMN Resolution_width INT AFTER ScreenResolution,
+                ADD COLUMN Resolution_height INT AFTER Resolution_width,
+                ADD COLUMN Touch_screen INT AFTER Resolution_height;
+
+                UPDATE laptopdata
+                SET Resolution_width = SUBSTRING_INDEX(SUBSTRING_INDEX(ScreenResolution, ' ',-1),'x',1),
+                    Resolution_height = SUBSTRING_INDEX(SUBSTRING_INDEX(ScreenResolution, ' ',-1),'x',-1),
+                    Touch_screen = CASE WHEN ScreenResolution LIKE '%Touchscreen%' THEN 1 ELSE 0 END;
+
+                ALTER TABLE laptopdata DROP COLUMN ScreenResolution;</code></pre>
+                    </div>
+
+                    <!-- Memory Processing -->
+                    <div class="process-step">
+                        <h4>Memory Column Normalization (DDL + DML)</h4>
+                        <pre><code>ALTER TABLE laptopdata
+                ADD COLUMN memory_type VARCHAR(255) AFTER memory,
+                ADD COLUMN primary_storage INT AFTER memory_type,
+                ADD COLUMN secondary_storage INT AFTER primary_storage;
+
+                UPDATE laptopdata
+                SET memory_type = CASE
+                    WHEN Memory LIKE '%SSD%' AND Memory LIKE '%HDD%' THEN 'Hybrid'
+                    WHEN Memory LIKE '%SSD%' THEN 'SSD'
+                    WHEN Memory LIKE '%HDD%' THEN 'HDD'
+                    WHEN Memory LIKE '%Flash%' THEN 'Flash'
+                    ELSE NULL
+                END;
+
+                UPDATE laptopdata
+                SET primary_storage = REGEXP_SUBSTR(SUBSTRING_INDEX(memory,'+',1), '[0-9]+'),
+                    secondary_storage = CASE
+                        WHEN memory LIKE '%+%' THEN REGEXP_SUBSTR(SUBSTRING_INDEX(memory,'+',-1), '[0-9]+')
+                        ELSE 0
+                    END;
+
+                UPDATE laptopdata
+                SET secondary_storage = CASE
+                    WHEN secondary_storage <= 2 THEN secondary_storage * 1024
+                    ELSE secondary_storage
+                END;
+
+                ALTER TABLE laptopdata DROP COLUMN memory;</code></pre>
+                    </div>
+
+                    <!-- CPU Name Simplification -->
+                    <div class="process-step">
+                        <h4>CPU Name Simplification (DML)</h4>
+                        <pre><code>UPDATE laptopdata
+                SET Cpu_name = SUBSTRING_INDEX(cpu_name, ' ',3);</code></pre>
+                    </div>
+                </div>
+
+                <h2>Quality Metrics</h2>
+                <div class="table-wrapper">
+                    <table class="alt">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Before</th>
+                                <th>After</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Duplicate Records</td>
+                                <td>29</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Null Values</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Column Consistency</td>
+                                <td>40%</td>
+                                <td>100%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="box">
+                    <h3>Final Schema Design</h3>
+                    <div class="schema-diagram">
+                        <pre><code>DESCRIBE laptopdata;
+
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| index               | INT          | YES  |     | NULL    |       |
+| Company             | VARCHAR(255) | YES  |     | NULL    |       |
+| TypeName            | VARCHAR(255) | YES  |     | NULL    |       |
+| Inches              | DECIMAL(5,2) | YES  |     | NULL    |       |
+| Resolution_width    | INT          | YES  |     | NULL    |       |
+| Resolution_height   | INT          | YES  |     | NULL    |       |
+| Touch_screen        | INT          | YES  |     | NULL    |       |
+| Cpu_brand           | VARCHAR(50)  | YES  |     | NULL    |       |
+| Cpu_name            | VARCHAR(255) | YES  |     | NULL    |       |
+| Ram                 | INT          | YES  |     | NULL    |       |
+| ...                 | ...          | ...  | ... | ...     | ...   |
++---------------------+--------------+------+-----+---------+-------+</code></pre>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>Applications Enabled</h3>
+                    <ul>
+                        <li>Price-performance analysis</li>
+                        <li>Manufacturer comparison</li>
+                        <li>Laptop recommendation systems</li>
+                        <li>Market trend analysis</li>
+                    </ul>
+                </div>
+
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/SQL-Data-Cleaning/tree/main" class="button icon solid fa-code" target="_blank">View SQL Code</a></li>
+                </ul>
+
+            </section>
+        </div>
+
+        <script>
+            let index = 0;
+            let interval;
+            const slides = document.querySelectorAll(".slide");
+
+            function showSlide(i) {
+                slides.forEach(s => s.classList.remove("active"));
+                slides[i].classList.add("active");
+            }
+
+            function changeSlide(n) {
+                index = (index + n + slides.length) % slides.length;
+                showSlide(index);
+            }
+
+            function startAutoSlide() {
+                interval = setInterval(() => changeSlide(1), 3000);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+        </script>
+    </div>
+</body>
+</html>
