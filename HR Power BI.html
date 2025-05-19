@@ -1,0 +1,453 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Recruitment Data Analysis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        .slide.active {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            opacity: 0.6;
+            transition: opacity 0.1s;
+        }
+        .slideshow:hover .controls {
+            opacity: 1;
+        }
+        .controls button {
+            background: rgba(0, 0, 0, 0);
+            color: white;
+            border: none;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 2px;
+        }
+        .controls button:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header">
+            <a href="https://github.com/yourusername/recruitment-analysis" target="_blank" class="logo">Recruitment Data Analysis</a>
+        </header>
+
+        <nav id="nav">
+            <ul class="links">
+                <li><a href="index.html">Portfolio</a></li>
+                <li><a href="generic.html">Resume</a></li>
+            </ul>
+            <ul class="icons">
+                <li><a href="https://www.linkedin.com/in/yourprofile" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/yourusername" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <section class="post">
+                <header class="major">
+                    <span class="date">May 2024</span>
+                    <h1>Recruitment Data Transformation and Analysis</h1>
+                    <p>Integrated 800k+ job postings from 3 sources into unified optimized Power BI report</p>
+                </header>
+
+                <div class="box">
+                    <h2>Project Overview</h2>
+                    <p>Transformed fragmented recruitment data from multiple sources into a standardized schema, implementing automated data ingestion and optimized Power BI visualizations for strategic workforce planning.</p>
+                </div>
+
+                <div class="box">
+                    <h2>Client Requirements</h2>
+                    <ul class="list">
+                        <li><strong>Data Tables into Database</strong>: Loaded different data tables format from a folder into a database </li>
+                        <li><strong>Data Consolidation</strong>: Merge normalized/centralized data from 3 sources</li>
+                        <li><strong>Schema Standardization</strong>: Create unified table with 12-column structure</li>
+                        <li><strong>Performance Optimization</strong>: Handle 800k+ rows efficiently</li>
+                        <li><strong>Trend Analysis</strong>: 6 key analytical requirements for hiring insights</li>
+                    </ul>
+                    <blockquote>
+                        <a href="documents/HR Task.pdf" target="_blank" class="button icon solid fa-file-pdf">View Task Email</a>
+                    </blockquote>
+                </div>
+
+                <div class="box">
+                    <h2>Data Tables</h2>
+                        <table border="1" cellpadding="8" cellspacing="0">
+                        <thead>
+                            <tr>
+                            <th>Source 1</th>
+                            <th>Source 2</th>
+                            <th>Source 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Job_posting1 (Fact Table)</td>
+                            <td>Job_postings_facts2 (Fact Table)</td>
+                            <td>Posting3</td>
+                            </tr>
+                            <tr>
+                            <td>Job_skills1 (Dimension Table)</td>
+                            <td>Skills_dim2 (Dimension Table)</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <td>Job_summar1 (Dimension Table)</td>
+                            <td>Skills_job_dim2 (Dimension Table)</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <td></td>
+                            <td>Company_dim2 (Dimension Table)</td>
+                            <td></td>
+                            </tr>
+                        </tbody>
+                        </table>
+
+                        <div class="slideshow">
+                            <img src="images/HR image/HR job_postings1.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR Job_skills1.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR job_summary1.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR job_posting_fact2.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR skills_dim2.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR skills_job_dim2.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR company2 data.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/HR postings3.png" class="slide active" alt="Data Model">
+
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>
+                        </div><br>
+
+
+                <div class="box">
+                    <h2>Implementation Steps</h2>
+                    <div class="step">
+                        <h3>1. Automated Database Loading</h3>
+                            <p>
+                            Automatically loaded all data files from a local folder into the MySQL <code>bidb</code> database.
+                            </p>
+                            <ul>
+                            <li>Connected using SQLAlchemy’s <code>create_engine</code>.</li>
+                            <li>Detected file type and target table name from each filename.</li>
+                            <li>Read files using:
+                                <ul>
+                                <li><code>pd.read_excel</code> for <code>.xlsx</code></li>
+                                <li><code>pd.read_csv</code> for <code>.csv</code></li>
+                                <li><code>pd.read_json</code> for others</li>
+                                </ul>
+                            </li>
+                            <li>Loaded data into MySQL with <code>df.to_sql(...)</code></li>
+                            <li>Displayed progress after each table was loaded.</li>
+                            </ul>
+
+
+                        <details>
+                            <summary><strong>Python Data Ingestion Script</strong></summary>
+                            <pre class="code-sample">
+# create connection with destination database
+# read data file path
+# extract the name of table and data format
+# load it into database with same data table name
+
+engine = create_engine('mysql+pymysql://root:1234@localhost/bidb')
+
+for filepath in glob.glob(r'C:\Users\aly98\Desktop\Power BI\Projects\HR\Data/*'):
+    table_name = filepath.split(sep='\\',maxsplit=-1)[-1].split('.')[0]
+    data_format = filepath.split(sep='\\',maxsplit=-1)[-1].split('.')[1]
+        
+    if data_format == 'xlsx':
+        df = pd.read_excel(filepath)
+    elif data_format == 'csv':
+        df  = pd.read_csv(filepath)
+    else:
+        df = pd.read_json(filepath)
+    
+    df.to_sql(name = table_name, con=engine, if_exists='replace', index=False, chunksize=10000, method='multi')
+    print(f'{table_name} table loaded')</pre>
+                        </details>
+                    </div><br><br>
+
+                    <div class="step">
+                        <h3>2. Data Loading and Transformation in Power BI</h3>
+
+                                <h4>Transformation in Power Query</h4>
+                                <h5>Sources Used</h5>
+                                <ul>
+                                <li><strong>Source 1:</strong> job_postings1, job_skills1, job_summary1</li>
+                                <li><strong>Source 3:</strong> posting3</li>
+                                </ul>
+                                <p>Cleaned and merged Source 1 tables in Power BI using Power Query, considering the client's desired schema. Here, <code>job_postings1</code> is treated as the fact table, while <code>job_skills1</code> and <code>job_summary1</code> are dimension tables.</p>
+                                <ol>
+                                <li>Removed irrelevant columns from <code>job_postings1</code>.</li>
+                                <li>Renamed columns for consistency.</li>
+                                <li>Extracted <code>Job_id</code> from job URL.</li>
+                                <li>Merged <code>job_skills1</code> into <code>job_postings1</code> to include skills.</li>
+                                <li>Merged <code>job_summary1</code> into <code>job_postings1</code> to include summaries.</li>
+                                <li>Converted columns to appropriate data types.</li>
+                                </ol>
+
+                                <h4>Source 3: Transformation</h4>
+                                <ol>
+                                <li>Renamed columns to match Source 1 structure.</li>
+                                <li>Removed irrelevant columns.</li>
+                                <li>Converted data types appropriately.</li>
+                                <li>Extracted <code>Job_id</code>.</li>
+                                </ol>
+
+                                <p><strong>Appended</strong> Source 3 (<code>posting3</code>) to the cleaned Source 1 dataset to create a unified dataset.</p>
+
+                                <h4>Source 2: Transformation with Python</h4>
+                                <p>Used Python to reshape and aggregate Source 2 data due to many-to-one relationships (multiple skills per job_id), which could not be handled effectively in Power Query.</p>
+
+                                <details>
+                            <summary><strong>Python script</strong></summary>
+                            <pre class="code-sample">
+from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine('mysql+pymysql://root:1234@localhost/bidb')
+
+company = pd.read_sql("SELECT * FROM company_dim2", con=engine)
+job_post = pd.read_sql("SELECT * FROM job_postings_fact2", con=engine)
+skill = pd.read_sql("SELECT * FROM skills_dim2", con=engine)
+skill_job = pd.read_sql("SELECT * FROM skills_job_dim2", con=engine)
+
+df = skill_job.merge(skill, on='skill_id', how='left')
+skills_table = df.groupby('job_id')['skills'].agg(','.join).reset_index()
+
+job_post = job_post.merge(company, on='company_id', how='left')
+job_post = job_post.merge(skills_table, on='job_id', how='left')
+
+job_post.drop(columns=['job_via', 'search_location', 'job_no_degree_mention', 'job_health_insurance',
+                       'salary_rate', 'salary_year_avg', 'salary_hour_avg', 'link', 'link_google',
+                       'thumbnail', 'company_id'], inplace=True)
+
+job_post.rename(columns={
+    'job_title_short': 'Job_field',
+    'job_title': 'Job_title',
+    'job_schedule_type': 'Job_employment_type',
+    'job_work_from_home': 'Job_type',
+    'job_posted_date': 'Job_posting_date',
+    'job_country': 'Country',
+    'name': 'Company_name',
+    'skills': 'Job_skills',
+    'job_id': 'Job_id'
+}, inplace=True)
+</pre>
+                        </details>
+
+                            <p>The final DataFrame was loaded into Power BI as a separate data source.</p>
+
+                            <h4>Post-Load Processing in Power BI</h4>
+                            <p>After loading Source 2 into Power BI, added a derived column to classify job type:</p>
+                            <pre><code>= Table.AddColumn(job_post1, "Job_type", each if [job_work_from_home] = "1" then "remote" else "onsite")</code></pre>
+
+                    
+                        <div class="slideshow">
+                            <img src="images/HR image/power query steps.png" class="slide active" alt="Data Model">
+                            <img src="images/HR image/Query Dependecy Project2.png" class="slide active" alt="Data Model">
+
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>
+                        </div><br>
+                    
+                        </div><br><br>
+
+                    <div class="step">
+                        <h3>3. Power BI Visualizations and Business Insights</h3>
+<details>
+<summary><strong>1. Average Daily Job Openings</strong></summary>
+<p>
+  The company faced difficulties identifying hiring trends over time, affecting strategic workforce planning. To address this, a <strong>bar chart</strong> was implemented using a DAX measure that calculates the average number of job postings per day per month.
+</p>
+<pre><code>Avg job posting = 
+VAR selected_month = SELECTEDVALUE('bidb job_postings1'[Job_posting_date].[Month])
+VAR total_days = CALCULATE(DISTINCTCOUNT('bidb job_postings1'[Job_posting_date].[Date]), 
+                           FILTER('bidb job_postings1', 
+                                  'bidb job_postings1'[Job_posting_date].[Month] = selected_month))
+VAR total_openings = COUNT('bidb job_postings1'[Job_id])
+RETURN total_openings / total_days</code></pre>
+<img src="images/HR image/HR 1st insight.png"  alt="Data Model">
+<p><strong>Insight:</strong> The average daily job postings are highest in <strong>January</strong> and <strong>August</strong>, indicating peak hiring periods. Conversely, the lowest hiring activity occurs in <strong>May</strong>. Other months show relatively stable hiring trends with minimal fluctuations.</p>
+</details>
+
+<details>
+<summary><strong>2. Job Type Distribution Over the Years</strong></summary>
+<p>
+  To analyse the distribution of <strong>onsite and remote jobs across years</strong>, a table visualization was created. It shows the total number of companies offering each job type and their contribution percentages. This analysis informs better strategic recruitment planning.
+</p>
+<p><strong>Measures used:</strong></p>
+<pre><code>Total_company = 
+SUMX(VALUES('bidb job_postings1'[Job_type]), 
+     CALCULATE(DISTINCTCOUNT('bidb job_postings1'[Company_name])))</code></pre>
+
+<pre><code>job_Contribution_Years = 
+VAR total_job = CALCULATE([Total_company], ALL('bidb job_postings1'[Job_type]))
+RETURN [Total_company] / total_job</code></pre>
+<img src="images/HR image/HR 2nd insigh.png"  alt="Data Model">
+<p><strong>Insight:</strong> Onsite jobs consistently dominated across all years, accounting for over 90% of postings, except in 2023 where they slightly declined to 83%. Remote jobs started at 5.9% in 2022, increased to nearly 10% in 2023, and then dropped to less than 1% in 2024. Hybrid roles remained minimal throughout — nearly nonexistent in 2022, 1.6% in 2023, and less than 1% in 2024.</p>
+<p><strong>Note:</strong> The data volume for 2022 and 2023 is relatively low, so insights from these years may not be fully reliable.</p>
+
+
+</details>
+
+<details>
+<summary><strong>3. Dominant Job Types by Country and Year</strong></summary>
+<p>
+  A <strong>matrix table</strong> was used to identify the most frequent job fields for each <strong>country and year</strong>. This helps tailor recruitment strategies to local demands and global trends.
+</p>
+<pre><code>Popular_Job_Year = 
+VAR selected_country = SELECTEDVALUE('bidb job_postings1'[Country])
+VAR selected_year = SELECTEDVALUE('bidb job_postings1'[Job_posting_date].[Year])
+VAR job_occurance = 
+    SUMMARIZE(
+        FILTER('bidb job_postings1', 
+               'bidb job_postings1'[Country] = selected_country &&
+               'bidb job_postings1'[Job_posting_date].[Year] = selected_year &&
+               'bidb job_postings1'[Job_field] &lt;&gt; "No Clear Specifications"),
+        'bidb job_postings1'[Job_field],
+        "job_field_count", COUNT('bidb job_postings1'[Job_field])
+    )
+VAR max_posting = MAXX(job_occurance, [job_field_count])
+RETURN MAXX(FILTER(job_occurance, [job_field_count] = max_posting), 'bidb job_postings1'[Job_field])</code></pre>
+<img src="images/HR image/HR 3rd insight.png"  alt="Data Model">
+<p><strong>Insight:</strong> For your complete data refer to the Power BI report</p>
+</details>
+
+<details>
+<summary><strong>4. Monthly Hiring Activity</strong></summary>
+<p>
+  To gauge market stability and activity, a <strong>line chart</strong> was implemented showing the number of distinct companies hiring each month. This allows the company to identify fluctuations and trends in hiring behavior over time.
+</p>
+<ul>
+  <li><strong>X-axis:</strong> Month</li>
+  <li><strong>Y-axis:</strong> Distinct Company Count</li>
+</ul>
+<img src="images/HR image/HR 4th insight.png"  alt="Data Model">
+<p><strong>Insight:</strong>The visual indicates that most companies begin hiring from October, peaking in January. In October, 28.2k companies were hiring, followed by a slight dip to 27.1k in November. Hiring activity then increased significantly, reaching 32.9k companies in January. After January, hiring declined to 24.5k in February and remained relatively stable for a few months before dropping further to 21.6k in May. It then gradually increased again leading up to the following January</p>
+</details>
+
+<details>
+<summary><strong>5. Top 3 Demanded Job Fields Each Year</strong></summary>
+<p>
+  A <strong>matrix table</strong> was created to display the <strong>top 3 in-demand job fields for each year</strong>. This enables the company to align hiring strategies with industry demand and growth sectors.
+</p>
+<pre><code>Top3_demanded_job = 
+VAR selected_year = SELECTEDVALUE('bidb job_postings1'[Job_posting_date].[Year])
+VAR on_demand_jobs = 
+    TOPN(3, 
+         SUMMARIZE(
+             FILTER('bidb job_postings1', 
+                    'bidb job_postings1'[Job_posting_date].[Year] = selected_year &&
+                    'bidb job_postings1'[Job_field] &lt;&gt; "No Clear Specifications"), 
+             'bidb job_postings1'[Job_field], 
+             "count_job_field", COUNT('bidb job_postings1'[Job_field])
+         ), 
+         [count_job_field], DESC)
+RETURN CONCATENATEX(on_demand_jobs, 'bidb job_postings1'[Job_field], ", ")</code></pre>
+<img src="images/HR image/HR 5th insight.png"  alt="Data Model">
+<p><strong>Insight:</strong>Based on the data provided, the top three in-demand jobs in 2022 and 2023 were consistently Data Engineer, Data Analyst, and Data Scientist. However, in 2024, Business Analyst replaced Data Scientist in the top three. The order of the data in each row reflects the ranking order, showing the top 1st, 2nd, and 3rd positions for each year.</p>
+</details>
+
+<details>
+<summary><strong>6. Most In-Demand Skills</strong></summary>
+<p>
+  A <strong>word cloud</strong> was implemented using the <code>Job_skills</code> column to visualize the most frequently required skills across postings. This helps stakeholders prioritize workforce development and training aligned with current market needs.
+</p>
+<img src="images/HR image/HR 6th insight.png"  style="width: 100%" alt="Data Model">
+</details><br>
+
+
+
+                    <div class="step">
+                        <h3>4. Final Dashboard</h3>
+                        <div class="slideshow">
+                            <img src="images/HR image/Report 1.png" class="slide active" alt="Dashboard 1">
+                            <img src="images/HR image/Report 2.png" class="slide" alt="Dashboard 2">
+                            <div class="controls">
+                                <button onclick="changeSlide(-1)">❮</button>
+                                <button onclick="changeSlide(1)">❯</button>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+
+                <div class="box">
+                    <h2>Technology Stack</h2>
+                    <ul>
+                        <li><strong>Python</strong>: pandas, SQLAlchemy for ETL</li>
+                        <li><strong>MySQL</strong>: Central data repository</li>
+                        <li><strong>Power BI</strong>: DAX measures, Power Query, Visualizations</li>
+                        <li><strong>Performance Optimization</strong>: Aggregations, Columnar storage</li>
+                    </ul>
+                </div>
+
+                <ul class="actions special">
+                    <li><a href="https://github.com/alysahab/Recruitment-Data-Analysis/tree/main" class="button icon solid fa-code" target="_blank">View Source Code</a></li>
+                    <li><a href="https://app.powerbi.com/view?r=eyJrIjoiNDM2MGIxNGEtMzA0Ny00OGEyLTk0NGEtZTc1NGEyYzE5MTA2IiwidCI6ImQ3NTVkZWIwLTFkNTgtNGFkNS05MDg5LTYyYzU5ZmU4MzdmOCIsImMiOjl9" class="button icon solid fa-chart-bar" target="_blank">Live Dashboard</a></li>
+                    
+                </ul>
+            </section>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".slideshow").forEach(function (slideshow) {
+                    const slides = slideshow.querySelectorAll(".slide");
+                    let index = 0;
+
+                    function showSlide(i) {
+                        slides.forEach((s, idx) => {
+                            s.classList.remove("active");
+                            s.style.display = "none";
+                            if (idx === i) {
+                                s.classList.add("active");
+                                s.style.display = "block";
+                            }
+                        });
+                    }
+
+                    function changeSlide(n) {
+                        index = (index + n + slides.length) % slides.length;
+                        showSlide(index);
+                    }
+
+                    const buttons = slideshow.querySelectorAll(".controls button");
+                    buttons[0].addEventListener("click", () => changeSlide(-1));
+                    buttons[1].addEventListener("click", () => changeSlide(1));
+
+                    showSlide(index);
+                });
+            });
+        </script>
+
+    </div>
+</body>
+</html>
